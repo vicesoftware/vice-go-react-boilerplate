@@ -32,6 +32,9 @@ func (ws *webserver) router() *mux.Router {
 
 	r.NotFoundHandler = handler(notFoundHandler)
 
+	// handle /ping for convenience. we'll also handle /api/v1/ping with the same function.
+	r.HandleFunc("/ping", handler(ws.handlePing)).Methods("GET")
+
 	apiv1 := r.PathPrefix("/api/v1").Subrouter()
 
 	apiv1.HandleFunc("/ping", handler(ws.handlePing)).Methods("GET")
@@ -49,6 +52,14 @@ func (ws *webserver) router() *mux.Router {
 	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handler(ws.handleDeleteContactAddress)).Methods("DELETE")
 
 	return r
+}
+
+// @Summary Ping server
+// @Produce json
+// @Success 200 {object} models.PingResponse
+// @Router /ping [get]
+func (ws *webserver) handlePing(w http.ResponseWriter, r *http.Request) error {
+	return Ok(w, models.PingResponse{Message: "pong"})
 }
 
 // @Summary Get all contacts
