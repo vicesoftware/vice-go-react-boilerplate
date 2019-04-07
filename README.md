@@ -15,10 +15,10 @@ To run this boilerplate
 1. See [/server/readme.md](server/readme.md) and follow the instructions in the "Getting started section". **Make sure you have properly setup the database and that you have postgres running** as described there.
 2. Execute `npm run preinstall` to install the client dependencies. Doing this will simply run `/client> npm install` for you.
 3. Execute `npm start`. Doing this will execute `npm run start:client` and `npm run start:server` along with some color coding so that you will have a nice output for both client and server in the same terminal window as shown below.
-4. You should get a browser open to http://localhost:3000 with the client app running in it and to verify that the server is running open http://localhost:8423/swagger/index.html to see the servers swagger documentation page.
 
-_npm start output -----_
 ![](docs/2019-04-07-07-38-18.png)
+
+4. You should get a browser open to http://localhost:3000 with the client app running in it and to verify that the server is running open http://localhost:8423/swagger/index.html to see the servers swagger documentation page.
 
 # Documentation
 
