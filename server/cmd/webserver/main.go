@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
+	"github.com/vicesoftware/vice-go-boilerplate/pkg/log"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -36,7 +36,7 @@ func main() {
 		SSLMode:  *flagDBSSL,
 	}
 
-	log.Printf("connecting to the database...")
+	log.Info("connecting to the database...")
 
 	db, err := database.New(dbSettings)
 	if err != nil {

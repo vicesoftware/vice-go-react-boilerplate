@@ -2,16 +2,16 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/models"
-
 	"github.com/gorilla/mux"
+	httpSwagger "github.com/swaggo/http-swagger"
 	_ "github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/docs"
+	"github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/models"
 	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
-	"github.com/swaggo/http-swagger"
+	"github.com/vicesoftware/vice-go-boilerplate/pkg/log"
+	"go.uber.org/zap"
 )
 
 type webserver struct {
@@ -22,7 +22,7 @@ type webserver struct {
 func (ws *webserver) Start() {
 	r := ws.router()
 
-	log.Printf("listening on %s\n", ws.addr)
+	log.Info("starting http server", zap.String("addr", ws.addr))
 	log.Fatal(http.ListenAndServe(ws.addr, r))
 }
 
@@ -32,17 +32,19 @@ func (ws *webserver) router() *mux.Router {
 
 	apiv1 := r.PathPrefix("/api/v1").Subrouter()
 
-	apiv1.HandleFunc("/contacts", handleErrors(ws.handleGetContacts)).Methods("GET")
-	apiv1.HandleFunc("/contacts/{contactID}", handleErrors(ws.handleGetContact)).Methods("GET")
-	apiv1.HandleFunc("/contacts", handleErrors(ws.handlePostContact)).Methods("POST")
-	apiv1.HandleFunc("/contacts/{contactID}", handleErrors(ws.handlePutContact)).Methods("PUT")
-	apiv1.HandleFunc("/contacts/{contactID}", handleErrors(ws.handleDeleteContact)).Methods("DELETE")
+	apiv1.HandleFunc("/ping", handler(ws.handlePing)).Methods("GET")
 
-	apiv1.HandleFunc("/contacts/{contactID}/addresses", handleErrors(ws.handleGetContactAddresses)).Methods("GET")
-	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handleErrors(ws.handleGetContactAddress)).Methods("GET")
-	apiv1.HandleFunc("/contacts/{contactID}/addresses", handleErrors(ws.handlePostContactAddresses)).Methods("POST")
-	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handleErrors(ws.handlePutContactAddress)).Methods("PUT")
-	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handleErrors(ws.handleDeleteContactAddress)).Methods("DELETE")
+	apiv1.HandleFunc("/contacts", handler(ws.handleGetContacts)).Methods("GET")
+	apiv1.HandleFunc("/contacts/{contactID}", handler(ws.handleGetContact)).Methods("GET")
+	apiv1.HandleFunc("/contacts", handler(ws.handlePostContact)).Methods("POST")
+	apiv1.HandleFunc("/contacts/{contactID}", handler(ws.handlePutContact)).Methods("PUT")
+	apiv1.HandleFunc("/contacts/{contactID}", handler(ws.handleDeleteContact)).Methods("DELETE")
+
+	apiv1.HandleFunc("/contacts/{contactID}/addresses", handler(ws.handleGetContactAddresses)).Methods("GET")
+	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handler(ws.handleGetContactAddress)).Methods("GET")
+	apiv1.HandleFunc("/contacts/{contactID}/addresses", handler(ws.handlePostContactAddresses)).Methods("POST")
+	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handler(ws.handlePutContactAddress)).Methods("PUT")
+	apiv1.HandleFunc("/contacts/{contactID}/addresses/{addressID}", handler(ws.handleDeleteContactAddress)).Methods("DELETE")
 
 	return r
 }
