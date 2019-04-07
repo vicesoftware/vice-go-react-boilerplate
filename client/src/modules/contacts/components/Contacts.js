@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import AddEditContactForm from "./AddEditContactFormContainer";
 
 const Address = ({ line1 }) => (
   <ul>
@@ -23,6 +24,7 @@ const Contacts = ({ contacts }) => (
         ))}
       </ul>
     )}
+    <AddEditContactForm />
   </Fragment>
 );
 
