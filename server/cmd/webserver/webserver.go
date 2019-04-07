@@ -30,6 +30,8 @@ func (ws *webserver) router() *mux.Router {
 	r := mux.NewRouter()
 	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
+	r.NotFoundHandler = handler(notFoundHandler)
+
 	apiv1 := r.PathPrefix("/api/v1").Subrouter()
 
 	apiv1.HandleFunc("/ping", handler(ws.handlePing)).Methods("GET")
