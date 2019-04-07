@@ -120,7 +120,7 @@ function addJwtToken(config) {
   // if (!jwtToken || !config) {
   //   return config;
   // }
-  //
+
   // const authorization = `Bearer ${jwtToken}`;
   // return {
   //   ...config,
@@ -129,7 +129,10 @@ function addJwtToken(config) {
   //     Authorization: authorization
   //   }
   // };
-  return config;
+  return {
+    accepts: "application/json",
+    ...config
+  };
 }
 
 function setJwtTokenFromHeaderResponse(authorizationHeader) {

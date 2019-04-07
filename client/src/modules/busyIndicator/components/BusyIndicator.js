@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Indicator from "./indicator.svg";
 import "./busyIndicator.css";
 
-const BusyIndicator = () => (
-  <img className="loader" src={Indicator} alt="Busy indicator" />
+const BusyIndicator = ({ isBusy }) => (
+  <Fragment>
+    {isBusy && <img className="loader" src={Indicator} alt="Busy indicator" />}
+  </Fragment>
 );
 
 export default BusyIndicator;

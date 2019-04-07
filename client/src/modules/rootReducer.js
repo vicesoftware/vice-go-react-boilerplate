@@ -6,6 +6,7 @@ import busyIndicator from "./busyIndicator";
 import pendingRequest from "./pendingRequest";
 import notificationPopup from "./notificationPopup";
 import wizard from "./wizard";
+import contacts from "./contacts";
 import httpCache from "./httpCache";
 
 export default combineReducers({
@@ -15,6 +16,7 @@ export default combineReducers({
   [httpCache.constants.STATE_NAME]: httpCache.reducer,
   [notificationPopup.constants.STATE_NAME]: notificationPopup.reducer,
   [wizard.constants.STATE_NAME]: wizard.reducer,
+  [contacts.constants.STATE_NAME]: contacts.reducer,
   form: formReducer,
   routing: routerReducer
 });

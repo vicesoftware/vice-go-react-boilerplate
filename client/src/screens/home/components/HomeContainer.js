@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import userContext from "../../../modules/userContext";
+import contacts from "../../../modules/contacts";
 
 const { getUserContext, isAuthenticated } = userContext.selectors;
+const {
+  components: { Contacts }
+} = contacts;
 
 class HomeContainer extends Component {
   render() {
@@ -16,21 +19,17 @@ class HomeContainer extends Component {
             <h1>Welcome Guest</h1>
             <p>
               You can login as ryan@vicesoftware.com with {"'password'"} for
-              your password.
+              your password to see how authenctication works.
             </p>
           </div>
         ) : (
           <h1>Hi {this.props.userContext.displayName}</h1>
         )}
+        <Contacts />
       </div>
     );
   }
 }
-
-HomeContainer.propTypes = {
-  userContext: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
-};
 
 const mapDispatchToProps = {
   ...userContext.actions

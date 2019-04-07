@@ -41,7 +41,7 @@ export function handleError(
   } else {
     logError(dispatch, actionType, httpMethod, url, httpConfig, {
       exception,
-      errorMessage: `${errorMessage}.
+      errorMessage: `${errorMessage}
       An error occurred when trying to dispatch results of ajax call to Redux.`
     });
   }

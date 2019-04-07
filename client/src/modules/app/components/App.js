@@ -13,7 +13,6 @@ import notificationPopup from "../../notificationPopup";
 import "./app.css";
 import navBar from "../../navBar";
 
-const { BusyIndicator } = busyIndicator.components;
 const { Home } = home.components;
 const { SignIn } = signin.components;
 const { Protected } = protectedRoute.components;
@@ -24,7 +23,7 @@ const {
   selectors: { getUserContext }
 } = userContext;
 const {
-  selectors: { isBusy }
+  components: { BusyIndicator }
 } = busyIndicator;
 const {
   components: { NavBar, MenuItem }
@@ -32,7 +31,7 @@ const {
 
 class App extends Component {
   render() {
-    const { isBusy, history } = this.props;
+    const { history } = this.props;
 
     return (
       <Router history={history}>
@@ -46,18 +45,15 @@ class App extends Component {
           </NavBar>
           <div className="App-intro">
             <NotificationPopup />
-            {isBusy ? (
-              <BusyIndicator />
-            ) : (
-              <div>
-                <OnUpdate call={this.props.resetError} />
-                <Route exact path="/" component={Home} />
-                <Route exact path="/authenticated" component={Authenticated} />
-                <Route exact path="/protected" component={Protected} />
-                <Route exact path="/wizard-example" component={WizardExample} />
-                <Route path="/sign-in" component={SignIn} />
-              </div>
-            )}
+            <BusyIndicator />
+            <div>
+              <OnUpdate call={this.props.resetError} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/authenticated" component={Authenticated} />
+              <Route exact path="/protected" component={Protected} />
+              <Route exact path="/wizard-example" component={WizardExample} />
+              <Route path="/sign-in" component={SignIn} />
+            </div>
           </div>
         </div>
       </Router>
@@ -70,8 +66,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => ({
-  userContext: getUserContext(state),
-  isBusy: isBusy(state)
+  userContext: getUserContext(state)
 });
 
 export default connect(
