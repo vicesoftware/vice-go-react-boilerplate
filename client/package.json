@@ -1,0 +1,52 @@
+{
+  "name": "create-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently --kill-others \"react-scripts start\" \"npm run prettier-watch\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "pretty": "prettier --write \"src/**/*.js\"",
+    "prettier-watch": "onchange \"src/**/*.js\" -- ./node_modules/.bin/prettier --write {{changed}}"
+  },
+  "proxy": "http://localhost:8423",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "history": "^4.7.2",
+    "localStorage": "^1.0.4",
+    "lodash": "^4.17.11",
+    "marked": "^0.6.1",
+    "prismjs": "^1.16.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1",
+    "redux-form": "^8.1.0",
+    "redux-thunk": "^2.3.0",
+    "rrc": "^0.10.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "cross-fetch": "^3.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "onchange": "^5.2.0",
+    "prettier": "^1.16.4",
+    "redux-immutable-state-invariant": "^2.1.0"
+  }
+}

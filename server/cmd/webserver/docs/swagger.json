@@ -1,0 +1,556 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "{{.Description}}",
+        "title": "Vice Software Example API",
+        "contact": {},
+        "license": {},
+        "version": "1"
+    },
+    "host": "{{.Host}}",
+    "basePath": "/api/v1",
+    "paths": {
+        "/contacts": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all contacts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.ContactResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create a contact",
+                "parameters": [
+                    {
+                        "description": "Create contact",
+                        "name": "contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ContactRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ContactResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{contactID}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a contact",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ContactResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update a contact",
+                "parameters": [
+                    {
+                        "description": "Update contact",
+                        "name": "contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ContactRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ContactResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete a contact",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{contactID}/addresses": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all of a contact's addresses",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.AddressResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create a contact address",
+                "parameters": [
+                    {
+                        "description": "Create address",
+                        "name": "address",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AddressRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AddressResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{contactID}/addresses/{addressID}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a contact address",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Address ID",
+                        "name": "addressID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AddressResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update a contact address",
+                "parameters": [
+                    {
+                        "description": "Update address",
+                        "name": "address",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AddressRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Address ID",
+                        "name": "addressID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.AddressResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete a contact address",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Contact ID",
+                        "name": "contactID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Address ID",
+                        "name": "addressID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.AddressRequest": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "example": "Washington"
+                },
+                "line1": {
+                    "type": "string",
+                    "example": "1600 Pennsylvania Ave."
+                },
+                "line2": {
+                    "type": "string",
+                    "example": "Ste. 1234"
+                },
+                "postalCode": {
+                    "type": "string",
+                    "example": "20006"
+                },
+                "stateProvince": {
+                    "type": "string",
+                    "example": "DC"
+                }
+            }
+        },
+        "models.AddressResponse": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "example": "Washington"
+                },
+                "createdAt": {
+                    "type": "integer",
+                    "example": 1554441489907
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "line1": {
+                    "type": "string",
+                    "example": "1600 Pennsylvania Ave."
+                },
+                "line2": {
+                    "type": "string",
+                    "example": "Ste. 1234"
+                },
+                "postalCode": {
+                    "type": "string",
+                    "example": "20006"
+                },
+                "stateProvince": {
+                    "type": "string",
+                    "example": "DC"
+                },
+                "updatedAt": {
+                    "type": "integer",
+                    "example": 1554441489907
+                }
+            }
+        },
+        "models.ContactRequest": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string",
+                    "example": "John"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Doe"
+                }
+            }
+        },
+        "models.ContactResponse": {
+            "type": "object",
+            "properties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.AddressResponse"
+                    }
+                },
+                "createdAt": {
+                    "type": "integer",
+                    "example": 1554441489907
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "John"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Doe"
+                },
+                "updatedAt": {
+                    "type": "integer",
+                    "example": 1554441489907
+                }
+            }
+        },
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,381 @@
+basePath: /api/v1
+definitions:
+  models.AddressRequest:
+    properties:
+      city:
+        example: Washington
+        type: string
+      line1:
+        example: 1600 Pennsylvania Ave.
+        type: string
+      line2:
+        example: Ste. 1234
+        type: string
+      postalCode:
+        example: "20006"
+        type: string
+      stateProvince:
+        example: DC
+        type: string
+    type: object
+  models.AddressResponse:
+    properties:
+      city:
+        example: Washington
+        type: string
+      createdAt:
+        example: 1554441489907
+        type: integer
+      id:
+        example: 1
+        type: integer
+      line1:
+        example: 1600 Pennsylvania Ave.
+        type: string
+      line2:
+        example: Ste. 1234
+        type: string
+      postalCode:
+        example: "20006"
+        type: string
+      stateProvince:
+        example: DC
+        type: string
+      updatedAt:
+        example: 1554441489907
+        type: integer
+    type: object
+  models.ContactRequest:
+    properties:
+      firstName:
+        example: John
+        type: string
+      lastName:
+        example: Doe
+        type: string
+    type: object
+  models.ContactResponse:
+    properties:
+      addresses:
+        items:
+          $ref: '#/definitions/models.AddressResponse'
+        type: array
+      createdAt:
+        example: 1554441489907
+        type: integer
+      firstName:
+        example: John
+        type: string
+      id:
+        example: 1
+        type: integer
+      lastName:
+        example: Doe
+        type: string
+      updatedAt:
+        example: 1554441489907
+        type: integer
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: Vice Software Example API
+  version: "1"
+paths:
+  /contacts:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ContactResponse'
+            type: array
+      summary: Get all contacts
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Create contact
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/models.ContactRequest'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ContactResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Create a contact
+  /contacts/{contactID}:
+    delete:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{}'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Delete a contact
+    get:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ContactResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Get a contact
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Update contact
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/models.ContactRequest'
+          type: object
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ContactResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Update a contact
+  /contacts/{contactID}/addresses:
+    get:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AddressResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Get all of a contact's addresses
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Create address
+        in: body
+        name: address
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddressRequest'
+          type: object
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AddressResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Create a contact address
+  /contacts/{contactID}/addresses/{addressID}:
+    delete:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      - description: Address ID
+        in: path
+        name: addressID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{}'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Delete a contact address
+    get:
+      parameters:
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      - description: Address ID
+        in: path
+        name: addressID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AddressResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Get a contact address
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Update address
+        in: body
+        name: address
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddressRequest'
+          type: object
+      - description: Contact ID
+        in: path
+        name: contactID
+        required: true
+        type: integer
+      - description: Address ID
+        in: path
+        name: addressID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AddressResponse'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+            type: object
+      summary: Update a contact address
+swagger: "2.0"

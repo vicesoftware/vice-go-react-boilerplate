@@ -1,0 +1,32 @@
+{
+  "name": "vice-go-react-boilerplate",
+  "version": "1.0.0",
+  "description": "Provides an opinionated starting point for apps built on React and Go stack",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "cd client && npm start",
+    "start:server": "cd server/cmd/webserver && ./webserver",
+    "build:server": "cd server/cmd/webserver && go build",
+    "start": "npm run build:server && node_modules/.bin/concurrently -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:server\" \"npm run start:client\"",
+    "install:client": "cd client && npm install",
+    "preinstall": "npm run install:client"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vicesoftware/vice-go-react-boilerplate.git"
+  },
+  "keywords": [
+    "Go",
+    "React",
+    "Boilerplate"
+  ],
+  "author": "Vice Software, LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vicesoftware/vice-go-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/vicesoftware/vice-go-react-boilerplate#readme"
+}
