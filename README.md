@@ -25,7 +25,7 @@ To run this boilerplate
 The documentation for the server and client can be found in their associated readme files shown below.
 
 - [Client Documentation](client/README.md)
-- [Server Documentation](server/README.md)
+- [Server Documentation](server/readme.md)
 
 # Tech Stack
 
