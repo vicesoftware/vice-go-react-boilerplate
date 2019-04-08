@@ -435,6 +435,23 @@
                     }
                 }
             }
+        },
+        "/ping": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Ping server",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.PingResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -549,6 +566,15 @@
             "properties": {
                 "error": {
                     "type": "string"
+                }
+            }
+        },
+        "models.PingResponse": {
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string",
+                    "example": "pong"
                 }
             }
         }

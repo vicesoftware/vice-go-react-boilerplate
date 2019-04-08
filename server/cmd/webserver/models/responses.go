@@ -4,6 +4,10 @@ type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
+type PingResponse struct {
+	Message string `json:"msg" example:"pong"`
+}
+
 type ContactResponse struct {
 	ID        int               `json:"id" example:"1"`
 	FirstName string            `json:"firstName" example:"John"`

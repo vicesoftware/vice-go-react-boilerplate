@@ -81,6 +81,12 @@ definitions:
       error:
         type: string
     type: object
+  models.PingResponse:
+    properties:
+      msg:
+        example: pong
+        type: string
+    type: object
 host: '{{.Host}}'
 info:
   contact: {}
@@ -378,4 +384,15 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
             type: object
       summary: Update a contact address
+  /ping:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PingResponse'
+            type: object
+      summary: Ping server
 swagger: "2.0"
